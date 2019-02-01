@@ -2,13 +2,13 @@ class TabLink {
   constructor(tabElement){
     // assign this.tabElement to the tabElement DOM reference
     this.tabElement = tabElement;
-    
+    // console.log(this.tabElement)
+
     // Get the `data-tab` value from this.tabElement and store it here
     this.tabData = this.tabElement.dataset.tab;
-    console.log(this.tabData);
-    
-    
-    // document.querySelector(`[data-tab= ${tabElement.dataset.tab}]`); 
+    // console.log(this.tabData)
+
+    // document.querySelector(`[data-tab= ${tabElement.dataset.tab}]`);
     // console.log(this.tabData);
 
     
@@ -16,15 +16,16 @@ class TabLink {
 
     // Check to see if this.tabData is equal to 'all'
 
-    //Can't figur out what I'm doing wrong
-    
     if(this.tabData === 'all'){
+
       // If `all` is true, select all cards regardless of their data attribute values
-      this.cards = true;
-      // console.log(this.cards)
+      this.cards = document.querySelectorAll(`.card`);
+      // console.log(this.cards);
     } else {
       // else if `all` is false, only select the cards with matching this.tabData values
-      this.cards = this.tabData;
+      // this.cards = document.querySelectorAll(`.card[data-tab= '${this.tabData}']`);
+      this.cards = document.querySelectorAll(`.card[data-tab="${this.tabData}"]`);
+      // console.log(this.cards)
     }
 
 
@@ -35,16 +36,19 @@ class TabLink {
 
     // Add a click event that invokes this.selectTab
     this.tabElement.addEventListener('click', () => this.selectTab());
+    // console.log(this.tabElement)
   }
 
   selectTab(){
 
     // Select all elements with the .tab class on them
     const tabs = document.querySelectorAll('.tab');
-    // console.log(tabs);
+    // console.log(tabs)
+
     // Iterate through the NodeList removing the .active-tab class from each element
     tabs.forEach(item => item.classList.remove('active-tab'));
-    
+    // console.log(tabs)
+
     // Select all of the elements with the .card class on them
     const cards = this.tabElement.querySelectorAll('.card');
 
@@ -57,6 +61,7 @@ class TabLink {
   
     // Notice we are looping through the this.cards array and invoking selectCard() from the TabCard class. Just un-comment the code and study what is happening here.
     this.cards.forEach(card => card.selectCard());
+    // console.log(tabs);
   }
 }
 
@@ -64,6 +69,7 @@ class TabCard {
   constructor(cardElement){
     // Assign this.cardElement to the cardElement DOM reference
     this.cardElement = cardElement;
+    // console.log(this.cardElement)
   }
   selectCard(){
     // Update the style of this.cardElement to display = "flex"
@@ -82,5 +88,5 @@ class TabCard {
 */
 
 let tabs = document.querySelectorAll('.tab');
-console.log(tabs);
 tabs.forEach(tab => new TabLink(tab));
+// console.log(tabs);
